@@ -1,0 +1,23 @@
+﻿services:
+  myapp:
+    build: .
+    container_name: myapp_container
+    restart: always
+    networks:
+      - myapp_network
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: db_container
+    restart: always
+    environment:
+      SA_PASSWORD: "Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - myapp_network
+
+
+networks:
+  myapp_network:
+    driver: bridge
